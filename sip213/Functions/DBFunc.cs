@@ -126,5 +126,62 @@ namespace sip213.Functions
 
         }
         
+        public void ChangePass(int id, PasswordBox pb, PasswordBox pbrew)
+        {
+            DateBase.EMPLOYEE emp = db.EMPLOYEE.Where(c => c.EMP_ID == id).SingleOrDefault();
+            if (pb.Password != pbrew.Password)
+            {
+                MessageBox.Show("Пароли не совпадают!", "Ошибка смены пароля!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            emp.password = pb.Password;
+            db.SaveChanges();
+            MessageBox.Show("Пароль изменён.", "Complete", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        public void SendRequest(TextBox mail, int id, string oldMail)
+        {
+            DateBase.Request req = new DateBase.Request
+            {
+                UserRequest = id,
+                NewMail = mail.Text,
+                OldMail = oldMail
+            };
+            db.Request.Add(req);
+            db.SaveChanges();
+        }
+
+        public void CheckRequest(Button bt)
+        {
+            int count = db.Request.Count();
+            bt.Content = $"Заявок ({count})";
+        }
+
+        public void LoadRequest(DataGrid dg)
+        {
+            dg.ItemsSource = db.Request.ToList();
+        }
+
+        public void RequestAccept(DataGrid dg)
+        {
+            DateBase.Request req = dg.SelectedItem as DateBase.Request;
+            if (req == null)
+                return;
+            DateBase.EMPLOYEE emp = db.EMPLOYEE.Where(c => c.EMP_ID == req.UserRequest).SingleOrDefault();
+            emp.MAIL = req.NewMail;
+            db.Request.Remove(req);
+            db.SaveChanges();
+            LoadRequest(dg);
+        }
+
+        public void RequestReject(DataGrid dg)
+        {
+            DateBase.Request req = dg.SelectedItem as DateBase.Request;
+            if (req == null)
+                return;
+            db.Request.Remove(req);
+            db.SaveChanges();
+            LoadRequest(dg);
+        }
     }
 }

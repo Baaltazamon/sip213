@@ -21,12 +21,16 @@ namespace sip213.Windows
     public partial class ChangePassword : Window
     {
         private readonly EMPLOYEE emp;
-
+        string code;
+        DateBase.EMPLOYEE EMP;
+        Functions.DBFunc f = new Functions.DBFunc();
         public ChangePassword(DateBase.EMPLOYEE emp)
         {
             InitializeComponent();
             lbMail.Content = $"Введите код с почты {emp.MAIL}";
             this.emp = emp;
+            code = Functions.Func.SendCode(emp.MAIL);
+            EMP = emp;
         }
 
        
@@ -62,7 +66,19 @@ namespace sip213.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Functions.Func.SendCode(emp.MAIL);
+            f.ChangePass(EMP.EMP_ID, pbPass, pbPassRew);
+            Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (tbCode.Text == code)
+            {
+                panel.Visibility = Visibility.Visible;
+                tbCode.Visibility = Visibility.Hidden;
+                btAccept.Visibility = Visibility.Hidden;
+            }
+
         }
     }
 }

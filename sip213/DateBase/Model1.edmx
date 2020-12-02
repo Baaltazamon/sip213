@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище sip213Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище sip213Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ACC_TRANSACTION">
           <Key>
             <PropertyRef Name="TXN_ID" />
@@ -127,6 +127,15 @@
           </Key>
           <Property Name="PRODUCT_TYPE_CD" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="NAME" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRequest" Type="int" Nullable="false" />
+          <Property Name="OldMail" Type="nvarchar" MaxLength="50" />
+          <Property Name="NewMail" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -270,6 +279,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Request_EMPLOYEE">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="UserRequest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="INDIVIDUAL_CUSTOMER_FK">
           <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="1" />
           <End Role="INDIVIDUAL" Type="Self.INDIVIDUAL" Multiplicity="0..1" />
@@ -318,6 +339,7 @@
           <EntitySet Name="OFFICER" EntityType="Self.OFFICER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT_TYPE" EntityType="Self.PRODUCT_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="ACC_TRANSACTION_ACCOUNT_FK" Association="Self.ACC_TRANSACTION_ACCOUNT_FK">
             <End Role="ACCOUNT" EntitySet="ACCOUNT" />
@@ -363,6 +385,10 @@
             <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
             <End Role="EMPLOYEE1" EntitySet="EMPLOYEE" />
           </AssociationSet>
+          <AssociationSet Name="FK_Request_EMPLOYEE" Association="Self.FK_Request_EMPLOYEE">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
           <AssociationSet Name="INDIVIDUAL_CUSTOMER_FK" Association="Self.INDIVIDUAL_CUSTOMER_FK">
             <End Role="CUSTOMER" EntitySet="CUSTOMER" />
             <End Role="INDIVIDUAL" EntitySet="INDIVIDUAL" />
@@ -376,8 +402,7 @@
             <End Role="PRODUCT" EntitySet="PRODUCT" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="sip213Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -488,6 +513,7 @@
           <NavigationProperty Name="DEPARTMENT" Relationship="Self.EMPLOYEE_DEPARTMENT_FK" FromRole="EMPLOYEE" ToRole="DEPARTMENT" />
           <NavigationProperty Name="EMPLOYEE1" Relationship="Self.EMPLOYEE_EMPLOYEE_FK" FromRole="EMPLOYEE" ToRole="EMPLOYEE1" />
           <NavigationProperty Name="EMPLOYEE2" Relationship="Self.EMPLOYEE_EMPLOYEE_FK" FromRole="EMPLOYEE1" ToRole="EMPLOYEE" />
+          <NavigationProperty Name="Request" Relationship="sip213Model.FK_Request_EMPLOYEE" FromRole="EMPLOYEE" ToRole="Request" />
         </EntityType>
         <EntityType Name="INDIVIDUAL">
           <Key>
@@ -779,7 +805,34 @@
             <End Role="PRODUCT_TYPE" EntitySet="PRODUCT_TYPE" />
             <End Role="PRODUCT" EntitySet="PRODUCT" />
           </AssociationSet>
+          <EntitySet Name="Request" EntityType="sip213Model.Request" />
+          <AssociationSet Name="FK_Request_EMPLOYEE" Association="sip213Model.FK_Request_EMPLOYEE">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRequest" Type="Int32" Nullable="false" />
+          <Property Name="OldMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NewMail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="sip213Model.FK_Request_EMPLOYEE" FromRole="Request" ToRole="EMPLOYEE" />
+        </EntityType>
+        <Association Name="FK_Request_EMPLOYEE">
+          <End Type="sip213Model.EMPLOYEE" Role="EMPLOYEE" Multiplicity="1" />
+          <End Type="sip213Model.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="EMP_ID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="UserRequest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -928,6 +981,16 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="sip213Model.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="NewMail" ColumnName="NewMail" />
+                <ScalarProperty Name="OldMail" ColumnName="OldMail" />
+                <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

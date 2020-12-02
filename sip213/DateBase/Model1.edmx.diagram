@@ -31,6 +31,8 @@
         <AssociationConnector Association="sip213Model.EMPLOYEE_DEPARTMENT_FK" ManuallyRouted="false" />
         <AssociationConnector Association="sip213Model.EMPLOYEE_EMPLOYEE_FK" ManuallyRouted="false" />
         <AssociationConnector Association="sip213Model.PRODUCT_PRODUCT_TYPE_FK" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="sip213Model.Request" Width="1.5" PointX="5.25" PointY="21.25" />
+        <AssociationConnector Association="sip213Model.FK_Request_EMPLOYEE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,5 +1,4 @@
-﻿using sip213.DateBase;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,27 +15,25 @@ using System.Windows.Shapes;
 namespace sip213.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для LoanM.xaml
+    /// Interaction logic for Requests.xaml
     /// </summary>
-    public partial class LoanM : Window
+    public partial class Requests : Window
     {
-        private readonly EMPLOYEE emp;
         Functions.DBFunc f = new Functions.DBFunc();
-        
-        public LoanM(DateBase.EMPLOYEE emp)
+        public Requests()
         {
             InitializeComponent();
-            f.CheckUserPassword(emp);
-            this.emp = emp;
+            f.LoadRequest(dgReq);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (tbMail.Text == tbMailRew.Text)
-            {
-                f.SendRequest(tbMail, emp.EMP_ID, emp.MAIL);
-                MessageBox.Show("Готово!");
-            }
+            f.RequestAccept(dgReq);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            f.RequestReject(dgReq);
         }
     }
 }
