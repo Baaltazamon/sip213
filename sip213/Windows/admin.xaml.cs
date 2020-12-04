@@ -27,6 +27,7 @@ namespace sip213.Windows
             dpDateStart.DisplayDateStart = DateTime.Now;
             dpDateStart.DisplayDate = DateTime.Now;
             f.LoadEmployee(dgEmployee, cbDepartment, cbBranch, cbSuperior);
+            f.CheckRequest(btReq);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -61,6 +62,13 @@ namespace sip213.Windows
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             f.DeleteEmployee(dgEmployee);
+        }
+
+        private void btReq_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.Requests req = new Requests();
+            req.ShowDialog();
+            f.LoadEmployee(dgEmployee, cbDepartment, cbBranch, cbSuperior);
         }
     }
 }

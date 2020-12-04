@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="LoanM" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid Margin="0,0,0,164"/>
+        <TextBox x:Name="tbMail" HorizontalAlignment="Left" Height="23" Margin="60,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196"/>
+        <TextBox x:Name="tbMailRew" HorizontalAlignment="Left" Height="23" Margin="60,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="196"/>
+        <Button Content="Отправить запрос" HorizontalAlignment="Left" Margin="318,78,0,0" VerticalAlignment="Top" Width="126" Height="23" Click="Button_Click"/>
+
 
     </Grid>
 </Window>
