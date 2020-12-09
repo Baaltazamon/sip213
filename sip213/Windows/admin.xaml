@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:sip213.Windows"
         mc:Ignorable="d"
         Title="admin" Height="450" Width="800">
-    
+
     <Grid>
         <DataGrid x:Name="dgEmployee" AutoGenerateColumns="False" Margin="0,0,0,178" SelectedCellsChanged="dgEmployee_SelectedCellsChanged">
             <DataGrid.Columns>
@@ -76,7 +76,7 @@
         <Button Content="Удалить" HorizontalAlignment="Center" Margin="375,0,297,26" VerticalAlignment="Bottom" Width="120" Click="Button_Click_3"/>
         <Button Content="Очистить" HorizontalAlignment="Left" Margin="40,0,0,26" VerticalAlignment="Bottom" Width="120" Click="Button_Click_2"/>
         <TextBox x:Name="tbMail" HorizontalAlignment="Left" Height="23" Margin="185,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btReq" Content="Request" HorizontalAlignment="Left" Margin="0,241,0,0" VerticalAlignment="Top" Width="106" Click="btReq_Click"/>
+        <Button x:Name="btReq" Content="Request" HorizontalAlignment="Left" Margin="0,0,0,146" VerticalAlignment="Bottom" Width="106" Click="btReq_Click"/>
 
     </Grid>
 </Window>

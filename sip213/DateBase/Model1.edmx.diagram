@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="sip213Model.OFFICER" Width="1.5" PointX="6" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="sip213Model.PRODUCT" Width="1.5" PointX="3.75" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="sip213Model.PRODUCT_TYPE" Width="1.5" PointX="1.5" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="sip213Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="sip213Model.ACC_TRANSACTION_ACCOUNT_FK" ManuallyRouted="false" />
         <AssociationConnector Association="sip213Model.ACC_TRANSACTION_BRANCH_FK" ManuallyRouted="false" />
         <AssociationConnector Association="sip213Model.ACC_TRANSACTION_EMPLOYEE_FK" ManuallyRouted="false" />

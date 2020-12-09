@@ -36,7 +36,6 @@ namespace sip213.DateBase
         public virtual DbSet<OFFICER> OFFICER { get; set; }
         public virtual DbSet<PRODUCT> PRODUCT { get; set; }
         public virtual DbSet<PRODUCT_TYPE> PRODUCT_TYPE { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Request> Request { get; set; }
     }
 }

@@ -137,16 +137,6 @@
           <Property Name="OldMail" Type="nvarchar" MaxLength="50" />
           <Property Name="NewMail" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <Association Name="ACC_TRANSACTION_ACCOUNT_FK">
           <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="0..1" />
           <End Role="ACC_TRANSACTION" Type="Self.ACC_TRANSACTION" Multiplicity="*" />
@@ -340,7 +330,6 @@
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT_TYPE" EntityType="Self.PRODUCT_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="ACC_TRANSACTION_ACCOUNT_FK" Association="Self.ACC_TRANSACTION_ACCOUNT_FK">
             <End Role="ACCOUNT" EntitySet="ACCOUNT" />
             <End Role="ACC_TRANSACTION" EntitySet="ACC_TRANSACTION" />
@@ -558,16 +547,6 @@
           <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PRODUCT" Relationship="Self.PRODUCT_PRODUCT_TYPE_FK" FromRole="PRODUCT_TYPE" ToRole="PRODUCT" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <Association Name="ACC_TRANSACTION_ACCOUNT_FK">
           <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="0..1" />
           <End Role="ACC_TRANSACTION" Type="Self.ACC_TRANSACTION" Multiplicity="*" />
@@ -748,7 +727,6 @@
           <EntitySet Name="OFFICER" EntityType="Self.OFFICER" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" />
           <EntitySet Name="PRODUCT_TYPE" EntityType="Self.PRODUCT_TYPE" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <AssociationSet Name="ACC_TRANSACTION_ACCOUNT_FK" Association="Self.ACC_TRANSACTION_ACCOUNT_FK">
             <End Role="ACCOUNT" EntitySet="ACCOUNT" />
             <End Role="ACC_TRANSACTION" EntitySet="ACC_TRANSACTION" />
@@ -970,17 +948,6 @@
               <MappingFragment StoreEntitySet="PRODUCT_TYPE">
                 <ScalarProperty Name="PRODUCT_TYPE_CD" ColumnName="PRODUCT_TYPE_CD" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="sip213Model.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
